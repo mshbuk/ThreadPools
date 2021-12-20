@@ -1,11 +1,15 @@
 package pgdp.threads;
 
 public class Future {
-	public void get() {
-		// TODO
+	private boolean finish = false;
+	public synchronized void get() throws InterruptedException {
+		while(!finish) {
+			wait();
+		}
 	}
 
-	public void finish() {
-		// TODO
+	public synchronized void finish() {
+		notifyAll();
+		finish = true;
 	}
 }
